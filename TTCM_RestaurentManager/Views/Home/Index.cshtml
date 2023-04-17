@@ -1,8 +1,28 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+@model List<MonAn>
+@using TTCM_RestaurentManager.Models;
+<ul class="filters_menu">
+    <li class="active" data-filter="*">All</li>
+    @foreach (var item in Model)
+    {
+        <li>@item.MaLoaiMa</li>
+    }
+</ul>
+<div class="filters-content">
+    <div class="row grid">
+@foreach (var item in Model)
+{
+    if (item.IsDeleted == 0)
+    {
+        @await Html.PartialAsync("_PartialMonAn", item)
+
+    }
+}
 </div>
+</div>
+

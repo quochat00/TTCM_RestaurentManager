@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutHomeCustomer.cshtml";
+}
+
+
+@model List<MonAn>
+<div>
+    @foreach (var item in Model)
+    {
+        if (item.IsDeleted == 0)
+        {
+            @await Html.PartialAsync("_PartialMonAn", item)
+
+        }
+    }
+</div>
+
+
+

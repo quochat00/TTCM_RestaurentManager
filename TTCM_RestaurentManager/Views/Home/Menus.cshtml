@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Menus";
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+@model List<MonAn>
+<div>
+    @foreach (var item in Model)
+    {
+        if (item.IsDeleted == 0)
+        {
+            @await Html.PartialAsync("_PartialMonAn", item)
+
+        }
+    }
+</div>
+

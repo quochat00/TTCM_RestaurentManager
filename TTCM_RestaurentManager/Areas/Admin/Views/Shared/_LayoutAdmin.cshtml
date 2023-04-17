@@ -1,0 +1,107 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../Assets/LayoutAdmin/assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../LayoutAdmin/assets/images/favicon.ico" />
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/./Assets/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="../Assets/css/admin.css">
+    <title>Admin</title>
+
+</head>
+<body>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <i class='bx bxs-smile'></i>
+            <span class="text">Admin</span>
+        </a>
+        <ul class="side-menu top">
+            <li class="tab-item">
+                <a asp-controller="homeadmin" asp-action="listdish">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">List Dishes</span>
+                </a>
+            </li>
+            <li class="tab-item">
+                <a asp-controller="homecooperator" asp-action="listcustomer">
+                    <i class='bx bxs-shopping-bag-alt'></i>
+                    <span class="text">List Customers</span>
+                </a>
+            </li>
+            <li class="tab-item">
+                <a asp-controller="homecooperator" asp-action="listbill">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">List Bills</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class='bx bxs-cog'></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Access" asp-action="Logout" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <a href="#" class="nav-link">Categories</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class='bx bxs-bell'></i>
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="../Assets/images/people.png"
+            </a>
+        </nav>
+        <!-- NAVBAR -->
+        <!-- MAIN -->
+        <main>
+
+            <div class="head-title">
+                <div class="left">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#"></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            @RenderBody()
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <script src="../Assets/js/script.js"></script>
+</body>
+</html>

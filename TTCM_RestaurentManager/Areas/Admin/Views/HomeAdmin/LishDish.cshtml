@@ -1,0 +1,227 @@
+﻿@model IEnumerable<TTCM_RestaurentManager.Models.MonAn>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "LishDish";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .snip1582 {
+        background-color: #c47135;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'BenchNine', Arial, sans-serif;
+        font-size: 1em;
+        font-size: 13px;
+        line-height: 1em;
+        margin: 15px 40px;
+        outline: none;
+        padding: 12px 40px 10px;
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+        .snip1582:before,
+        .snip1582:after {
+            border-color: transparent;
+            -webkit-transition: all 0.25s;
+            transition: all 0.25s;
+            border-style: solid;
+            border-width: 0;
+            content: "";
+            height: 24px;
+            position: absolute;
+            width: 24px;
+        }
+
+        .snip1582:before {
+            border-color: #c47135;
+            border-top-width: 2px;
+            left: 0px;
+            top: -5px;
+        }
+
+        .snip1582:after {
+            border-bottom-width: 2px;
+            border-color: #c47135;
+            bottom: -5px;
+            right: 0px;
+        }
+
+        .snip1582:hover,
+        .snip1582.hover {
+            background-color: #c47135;
+        }
+
+            .snip1582:hover:before,
+            .snip1582.hover:before,
+            .snip1582:hover:after,
+            .snip1582.hover:after {
+                height: 100%;
+                width: 100%;
+            }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+
+        // inspired by http://jsfiddle.net/arunpjohny/564Lxosz/1/
+        $('.table-responsive-stack').find("th").each(function (i) {
+
+            $('.table-responsive-stack td:nth-child(' + (i + 1) + ')').prepend('<span class="table-responsive-stack-thead">' + $(this).text() + ':</span> ');
+            $('.table-responsive-stack-thead').hide();
+        });
+
+
+
+
+
+        $('.table-responsive-stack').each(function () {
+            var thCount = $(this).find("th").length;
+            var rowGrow = 100 / thCount + '%';
+            //console.log(rowGrow);
+            $(this).find("th, td").css('flex-basis', rowGrow);
+        });
+
+
+
+
+        function flexTable() {
+            if ($(window).width() < 768) {
+
+                $(".table-responsive-stack").each(function (i) {
+                    $(this).find(".table-responsive-stack-thead").show();
+                    $(this).find('thead').hide();
+                });
+
+
+                // window is less than 768px
+            } else {
+
+
+                $(".table-responsive-stack").each(function (i) {
+                    $(this).find(".table-responsive-stack-thead").hide();
+                    $(this).find('thead').show();
+                });
+
+
+
+            }
+            // flextable
+        }
+
+        flexTable();
+
+        window.onresize = function (event) {
+            flexTable();
+        };
+
+
+
+
+
+
+        // document ready
+    });
+
+
+        // Search
+
+
+
+
+</script>
+
+<div class="tab-content">
+    <div class="tab-pane active">
+        <div class="table-data">
+            <div class="order">
+                <div class="head">
+                    <h3>Danh Sách Món Ăn </h3>
+                    <i class='bx bx-search'></i>
+                    <i class='bx bx-filter'></i>
+                    <div class="status pending">
+                        <form action="/search" method="get">
+                            <label for="price">Price:</label>
+                            <select id="price" name="price">
+                                <option value="all">Tất cả</option>
+                                <option value="above">Trên 5 triệu</option>
+                                <option value="below">Dưới 5 triệu</option>
+                            </select>
+                            <button class="btn-sm btn-gradient-danger" type="submit" asp-action="historyaddtour">Search</button>
+                        </form>
+                    </div>
+                    <div>
+                        <a asp-controller="HomeAdmin" asp-action="AddDish" class="create">
+                            <button type="button" class="snip1582" asp-controller="HomeAdmin" asp-action="AddDish">
+                                <i></i>Create New
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            
+                            <th style="width:20%">
+                                Tên Món Ăn
+                            </th>
+                            
+                           
+                            <th>
+                                Giá
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Active
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenMa)
+                                </td>
+                                
+            
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SoLuongMa)
+                                </td>
+                                <td>
+                                    @if (item.Active == 0)
+                                    {
+                                        <span class="status pending">Pending</span>
+                                    }
+                                    else if (item.Active == 1)
+                                    {
+                                        <span class="status completed">Approved</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn-sm btn-gradient-dark " asp-action="edittour" asp-route-etour="@item.MaMa">Edit</a>
+                                    @*<a class="btn-sm btn-gradient-info" asp-controller="home" asp-action="TourDetail" asp-route-matour="@item.MaTour">Details</a>*@
+                                    <a class="btn-sm btn-gradient-info" asp-action="listbooktour" asp-route-khtour="@item.MaMa">Details</a>
+                                    <a class="btn-sm btn-gradient-danger" asp-action="deleteTour" asp-route-matour="@item.MaMa">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
