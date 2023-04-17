@@ -10,6 +10,7 @@ namespace TTCM_RestaurentManager.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            int a = 0;
             _logger = logger;
         }
 
