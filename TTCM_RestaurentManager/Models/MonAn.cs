@@ -19,6 +19,10 @@ public partial class MonAn
 
     public int SoLuongMa { get; set; }
 
+    public int? Active { get; set; }
+
+    public int? IsDeleted { get; set; }
+
     public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
 
     public virtual LoaiMonAn? MaLoaiMaNavigation { get; set; }
