@@ -2,27 +2,34 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
-
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<MonAn>
 @using TTCM_RestaurentManager.Models;
-<ul class="filters_menu">
-    <li class="active" data-filter="*">All</li>
-    @foreach (var item in Model)
-    {
-        <li>@item.MaLoaiMa</li>
-    }
-</ul>
+@{
+    SelectList selectList = ViewBag.MaLoaiMa as SelectList;
+
+}
+<form method="get" action="@Url.Action("Index")">
+    <div class="form-group">
+        <label for="MaLoaiMa">Type of Dishes:</label>
+        
+        @Html.DropDownList("MaLoaiMa", selectList, new { @class = "form-control", @onchange = "this.form.submit();" })
+    </div>
+</form>
+
 <div class="filters-content">
     <div class="row grid">
-@foreach (var item in Model)
-{
-    if (item.IsDeleted == 0)
-    {
-        @await Html.PartialAsync("_PartialMonAn", item)
+        @foreach (var item in Model)
+        {
+            if (item.IsDeleted == 0)
+            {
+                @await Html.PartialAsync("_PartialMonAn", item)
+            }
+        }
+    </div>
+</div>
 
-    }
-}
-</div>
-</div>
+
+
+
 

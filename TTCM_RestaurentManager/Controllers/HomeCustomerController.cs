@@ -5,7 +5,6 @@ using TTCM_RestaurentManager.Models;
 namespace TTCM_RestaurentManager.Controllers
 {
     [Route("customer")]
-    [Route("")]
     public class HomeCustomerController : Controller
     {
         RestaurentManagerContext resDb = new RestaurentManagerContext();

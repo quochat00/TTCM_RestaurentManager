@@ -55,5 +55,36 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
             }
             return View(dish);
         }
+
+        [Route("editDish")]
+        public IActionResult EditDish(string edish)
+        {
+            var dishedit = ResDb.MonAns.SingleOrDefault(x => x.MaMa == edish);
+            ViewBag.MaLoaiMa = new SelectList(ResDb.LoaiMonAns.ToList(), "MaLoaiMa", "TenLoaiMa");
+            return View(dishedit);
+        }
+
+        [Route("editDish")]
+        [HttpPost]
+        public IActionResult EditDish(MonAn eddish)
+        {
+            var dish = ResDb.MonAns.Find(eddish.MaMa);
+            if (ModelState.IsValid)
+            {
+                dish.MaMa = eddish.MaMa;
+                dish.TenMa = eddish.TenMa;
+                dish.ChiTietMa = eddish.ChiTietMa;
+                dish.Gia = eddish.Gia;
+                dish.AnhMa = eddish.AnhMa;
+                dish.MaLoaiMa = eddish.MaLoaiMa;
+                dish.SoLuongMa = eddish.SoLuongMa;
+                dish.Active = eddish.Active;
+                dish.IsDeleted = eddish.IsDeleted;
+                ResDb.SaveChanges();
+                return RedirectToAction("listDish");
+            }
+            return View(eddish);
+        }
+
     }
 }

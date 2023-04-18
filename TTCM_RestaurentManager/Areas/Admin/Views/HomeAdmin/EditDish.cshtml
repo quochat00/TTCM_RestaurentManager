@@ -1,0 +1,67 @@
+﻿@model TTCM_RestaurentManager.Models.MonAn
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "EditDish";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>EditDish</h1>
+
+<h4>MonAn</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="EditDish">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaMa" />
+            <div class="form-group">
+                <label asp-for="TenMa" class="control-label"></label>
+                <input asp-for="TenMa" class="form-control" />
+                <span asp-validation-for="TenMa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChiTietMa" class="control-label"></label>
+                <input asp-for="ChiTietMa" class="form-control" />
+                <span asp-validation-for="ChiTietMa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gia" class="control-label"></label>
+                <input asp-for="Gia" class="form-control" />
+                <span asp-validation-for="Gia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnhMa" class="control-label"></label>
+                <input asp-for="AnhMa" class="form-control" />
+                <span asp-validation-for="AnhMa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaLoaiMa" class="control-label"></label>
+                <select asp-for="MaLoaiMa" class="form-control" asp-items="ViewBag.MaLoaiMa"></select>
+                <span asp-validation-for="MaLoaiMa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuongMa" class="control-label"></label>
+                <input asp-for="SoLuongMa" class="form-control" />
+                <span asp-validation-for="SoLuongMa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Active" class="control-label"></label>
+                <input asp-for="Active" class="form-control" />
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsDeleted" class="control-label"></label>
+                <input asp-for="IsDeleted" class="form-control" />
+                <span asp-validation-for="IsDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="listDish">Back to List</a>
+</div>
+
