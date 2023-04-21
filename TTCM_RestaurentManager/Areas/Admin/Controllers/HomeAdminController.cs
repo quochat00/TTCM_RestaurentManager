@@ -26,15 +26,15 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
             }
             if (price == "above")
             {
-                lstDish = ResDb.MonAns.AsNoTracking().Where(x => x.Gia > 5000000).ToList();
+                lstDish = ResDb.MonAns.AsNoTracking().Where(x => x.Gia > 15).ToList();
             }
             else if (price == "below")
             {
-                lstDish = ResDb.MonAns.AsNoTracking().Where(x => x.Gia <= 5000000).ToList();
+                lstDish = ResDb.MonAns.AsNoTracking().Where(x => x.Gia <= 15).ToList();
             }
             return View(lstDish);
         }
-        [Route("adddish")]
+        [Route("addDish")]
         [HttpGet]
         public IActionResult AddDish()
         {
@@ -43,7 +43,7 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [Route("addtour")]
+        [Route("addDish")]
         [HttpPost]
         public IActionResult AddDish(MonAn dish)
         {
@@ -85,6 +85,85 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
             }
             return View(eddish);
         }
+        [Route("deleteDish")]
+        public IActionResult DeleteDish(string madish, string malma)
+        {
+            // Lấy danh sách tour cần xóa dựa trên mã tour
+            var listdish = ResDb.MonAns.Where(x => x.MaMa == madish);
 
+            // Kiểm tra xem mã nhân viên có tồn tại trong danh sách tour hay không
+            var loai = ResDb.LoaiMonAns.Where(x => x.MaLoaiMa == malma).FirstOrDefault();
+            //var cttour = Tourdb.Cttours.Where(x => x.MaCttour == mact).FirstOrDefault();
+            if (loai != null)
+            {
+                foreach (var item in listdish)
+                {
+                    if (item.MaLoaiMa == malma)
+                    {
+                        return RedirectToAction("listDish");
+                    }
+                }
+            }
+
+            // Update trường IsDeleted của các món ăn trong danh sách và lưu thay đổi
+            if (listdish != null)
+            {
+                foreach (var item in listdish)
+                {
+                    item.IsDeleted = 1;
+                }
+                ResDb.SaveChanges();
+            }
+
+            // Update trường IsDeleted của món ăn dựa trên mã món ăn và mã loại món ăn và lưu thay đổi
+            var dish = ResDb.MonAns.FirstOrDefault(x => x.MaMa == madish && x.MaLoaiMa == malma);
+            if (dish != null)
+            {
+                dish.IsDeleted = 1;
+                ResDb.SaveChanges();
+            }
+
+            // Chuyển hướng đến trang danh sách món ăn
+            return RedirectToAction("listDish");
+        }
+
+        /////BookTable
+        [Route("listTable")]
+        public IActionResult LishTable(string table)
+        {
+            var lstTable = ResDb.DatBans.ToList();
+            if (table == "all")
+            {
+                lstTable = ResDb.DatBans.AsNoTracking().ToList();
+            }
+            if (table == "2")
+            {
+                lstTable = ResDb.DatBans.AsNoTracking().Where(x => x.SoLuongNguoi == 2).ToList();
+            }
+            else if (table == "3")
+            {
+                lstTable = ResDb.DatBans.AsNoTracking().Where(x => x.SoLuongNguoi == 3).ToList();
+            }
+            else if (table == "4")
+            {
+                lstTable = ResDb.DatBans.AsNoTracking().Where(x => x.SoLuongNguoi == 4).ToList();
+            }
+            else if (table == "5")
+            {
+                lstTable = ResDb.DatBans.AsNoTracking().Where(x => x.SoLuongNguoi == 5).ToList();
+            }
+            else if (table == "6")
+            {
+                lstTable = ResDb.DatBans.AsNoTracking().Where(x => x.SoLuongNguoi == 6).ToList();
+            }
+            return View(lstTable);
+        }
+        /////ListStaff
+        [Route("listStaff")]
+        public IActionResult ListStaff()
+        {
+            var lstStaff = ResDb.NhanViens.ToList();
+            return View(lstStaff);
+        }
     }
 }

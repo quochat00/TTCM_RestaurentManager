@@ -11,7 +11,7 @@ public partial class HoaDon
 
     public string? MaKh { get; set; }
 
-    public DateTime NgayTao { get; set; }
+    public DateTime? NgayTao { get; set; }
 
     public int? SoLuong { get; set; }
 

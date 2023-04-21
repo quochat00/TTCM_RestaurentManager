@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Booking";
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model IEnumerable<dynamic>
+
+<h2>Booking</h2>
+
+@foreach (var dish in ViewBag.dishDetail)
+{
+    <div>
+        <h4>@dish.TenMa</h4>
+        <img src="@dish.AnhMa" alt="@dish.TenMa" />
+        <p>@dish.ChiTietMa</p>
+        <p>Price: @dish.Gia</p>
+    </div>
+}
+<form method="post">
+    <input type="hidden" name="dishId" value="@ViewBag.MaMa" />
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="soLuong" id="quantity" min="1" max="@ViewBag.SoLuongMa" />
+    <button type="submit">Book</button>
+</form>
+@if (ViewBag.khachHang != null)
+{
+    <p>Welcome, @ViewBag.khachHang.TenKh</p>
+}
+
+
+
+
+

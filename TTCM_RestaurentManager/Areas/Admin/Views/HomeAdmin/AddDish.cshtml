@@ -9,9 +9,11 @@
 
 <h4>MonAn</h4>
 <hr />
+
+
 <div class="row">
     <div class="col-md-4">
-        <form method="post" asp-action="AddTour">
+        <form method="post" asp-action="AddDish">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MaMa" class="control-label"></label>
@@ -35,9 +37,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="AnhMa" class="control-label"></label>
-                <input asp-for="AnhMa" class="form-control" />
+                <input asp-for="AnhMa" class="form-control" type="file" onchange="handleFileInputChange(event)" />
                 <span asp-validation-for="AnhMa" class="text-danger"></span>
             </div>
+
+            
+
             <div class="form-group">
                 <label asp-for="MaLoaiMa" class="control-label"></label>
                 <select asp-for="MaLoaiMa" class ="form-control" asp-items="ViewBag.MaLoaiMa"></select>
@@ -58,3 +63,22 @@
     <a asp-action="listbill">Back to List</a>
 </div>
 
+
+<script>
+    function handleFileInputChange(event) {
+        // Lấy giá trị của input file
+        const fileInput = event.target;
+        const fileName = fileInput.value;
+
+        // Xử lý chuỗi để chỉ giữ lại tên file và loại bỏ đuôi ảnh
+        const lastIndex = fileName.lastIndexOf("\\");
+        const truncatedFileName = fileName.substring(lastIndex + 1, fileName.lastIndexOf("."));
+
+        // Đặt giá trị cho input hidden tương ứng với tên file đã xử lý
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = "AnhMa";
+        hiddenInput.value = truncatedFileName;
+        fileInput.parentNode.appendChild(hiddenInput);
+    }
+</script>

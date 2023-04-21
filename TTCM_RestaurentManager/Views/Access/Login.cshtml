@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+@model TaiKhoan
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../Assets/css/login.css">
+    <script src="https://kit.fontawesome.com/8757bc03ee.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            @using (Html.BeginForm("SignUp", "Access", FormMethod.Post))
+            {
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                @Html.TextBoxFor(x => x.Username, new { @class = "form-control form-control-lg", placeholder = "Name" })
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control form-control-lg", placeholder = "Email" })
+                @Html.TextBoxFor(x => x.Pass, new { @class = "form-control form-control-lg", placeholder = "Password", type = "password" })
+                @Html.TextBoxFor(x => x.Loai, new { @class = "form-control form-control-lg", placeholder = "loai" })
+                <button>Sign Up</button>
+            }
+        </div>
+        <div class="form-container sign-in-container">
+            @using (Html.BeginForm("Login", "Access", FormMethod.Post))
+            {
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                @Html.TextBoxFor(x=>x.Username, new {@class="form-control form-control-lg", placeholder="user name", required="required", autofocus="autofocus"})
+
+                @Html.TextBoxFor(x=>x.Pass, new {@class="form-control form-control-lg", type="password", placeholder="password"})
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger", style="color: red; list-style-type: none;"})
+                <button type="submit">Sign in</button>
+
+                <a asp-controller="Home" asp-action="Index">Sign in/ Sign up later</a>
+            }
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Welcome, Honored Guests</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../Assets/js/login.js" async defer></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<TTCM_RestaurentManager.Models.MonAn>
+﻿@model IEnumerable<TTCM_RestaurentManager.Models.NhanVien>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "LishDish";
+    ViewData["Title"] = "ListStaff";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -129,7 +129,7 @@
     });
 
 
-        // Search
+                // Search
 
 
 
@@ -141,80 +141,51 @@
         <div class="table-data">
             <div class="order">
                 <div class="head">
-                    <h3>Danh Sách Món Ăn </h3>
+                    <h3>Danh Sách Nhân Viên </h3>
                     <i class='bx bx-search'></i>
                     <i class='bx bx-filter'></i>
-                    <div class="status pending">
-                        <form action="/search" method="get">
-                            <label for="price">Price:</label>
-                            <select id="price" name="price">
-                                <option value="all">All</option>
-                                <option value="above">Above $15 </option>
-                                <option value="below">Below $15 </option>
-                            </select>
-                            <button class="btn-sm btn-gradient-danger" type="submit" asp-action="listDish">Search</button>
-                        </form>
-                    </div>
-                    <div>
-                        <a asp-controller="HomeAdmin" asp-action="AddDish" class="create">
-                            <button type="button" class="snip1582" asp-controller="HomeAdmin" asp-action="AddDish">
-                                <i></i>Create New
-                            </button>
-                        </a>
-                    </div>
                 </div>
                 <table>
                     <thead>
                         <tr>
-                            
+
                             <th style="width:20%">
-                                Tên Món Ăn
-                            </th>
-                            
-                           
-                            <th>
-                                Giá
+                                Tên nhân viên 
                             </th>
                             <th>
-                                Số lượng
+                                Chức vụ 
                             </th>
                             <th>
-                                Active
+                                Số điện thoại
                             </th>
-                            <th></th>
+                            <th>
+                                Email
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                
+
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.TenMa)
+                                    @Html.DisplayFor(modelItem => item.TenNv)
                                 </td>
-                                
-            
+
+
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Gia)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.SoLuongMa)
+                                    @Html.DisplayFor(modelItem => item.ChucVu)
                                 </td>
                                 <td>
-                                    @if (item.Active == 0)
-                                    {
-                                        <span class="status pending">Pending</span>
-                                    }
-                                    else if (item.Active == 1)
-                                    {
-                                        <span class="status completed">Approved</span>
-                                    }
+                                    @Html.DisplayFor(modelItem => item.Sdtnv)
                                 </td>
                                 <td>
-                                    <a class="btn-sm btn-gradient-dark " asp-action="editDish" asp-route-edish="@item.MaMa">Edit</a>
-                                    @*<a class="btn-sm btn-gradient-info" asp-controller="home" asp-action="TourDetail" asp-route-matour="@item.MaTour">Details</a>*@
-                                    <a class="btn-sm btn-gradient-info" asp-action="listbooktour" asp-route-khtour="@item.MaMa">Details</a>
-                                    <a class="btn-sm btn-gradient-danger" asp-action="deleteDish" asp-route-madish="@item.MaMa">Delete</a>
+                                    @Html.DisplayFor(modelItem => item.EmailNv)
+                                </td>
+                              
+                                <td>
+                                    <a class="btn-sm btn-gradient-dark " asp-action="editStaff" asp-route-edish="@item.MaNv">Edit</a>
+                                    <a class="btn-sm btn-gradient-danger" asp-action="deleteStaff" asp-route-madish="@item.MaNv">Delete</a>
                                 </td>
                             </tr>
                         }

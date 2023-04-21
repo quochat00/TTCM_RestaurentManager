@@ -36,6 +36,15 @@ create table NhanVien(
 	SDTNV nvarchar(20) not null,
 	EmailNV nvarchar(30) not null,
 )
+
+insert into NhanVien(MaNV,TenNV,ChucVu,AnhNV,SDTNV,EmailNV) values
+('NV01',N'Trần Bảo Quốc',N'Quản lý','quoc','0829307866',N'quoc@gmail.com'),
+('NV02',N'Trần Tuấn Huy ',N'Nhân viên phục vụ','huy','0829307866',N'huy@gmail.com'),
+('NV03',N'Trần Văn Hát',N'Bếp trưởng','hat','0829307866',N'hat@gmail.com'),
+('NV04',N'Nguyễn Thị Loan',N'Bếp phó','loan','0829307866',N'loan@gmail.com'),
+('NV05',N'Trần Mai An',N'Nhân viên thu ngân','an','0829307866',N'an@gmail.com')
+
+
 create table HoaDon(
 	MaHD nvarchar(10) primary key not null,
 	MaMA nvarchar(10),
@@ -62,3 +71,42 @@ create table TaiKhoan(
 	constraint fk_TaiKhoan_NhanVien foreign key (MaNV) references NhanVien(MaNV), 
 	constraint fk_TaiKhoan_KhachHang foreign key (MaKH) references KhachHang(MaKH), 
 )
+create table Ban(
+	MaBan nvarchar(10) primary key not null,
+	LoaiBan int not null 
+)
+insert into Ban values
+('B01',2),
+('B02',3),
+('B03',4),
+('B04',5),
+('B05',6)
+
+
+CREATE TABLE DatBan (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    HoTen NVARCHAR(50) NOT NULL,
+    SoDienThoai NVARCHAR(20) NOT NULL,
+    Email NVARCHAR(50) NOT NULL,
+    NgayDatBan DATETIME NOT NULL,
+    SoLuongNguoi INT NOT NULL,
+    GhiChu NVARCHAR(100)
+);
+
+insert into KhachHang(MaKH,TenKH,SDTKH,EmailKH,DiaChi,AnhKH) values 
+(N'KH01',N'Trần Mai Anh','0971833578','anh@gmail.com',N'Hà Nội','NV01'),
+(N'KH02',N'Nguyễn Quốc Hưng','0829328732','hung@gmail.com',N'Hà Nội','NV02'),
+(N'KH03',N'Ông Cao Thắng','0985789466','thang@gmail.com',N'Nam Định','NV03'),
+(N'KH04',N'Nguyễn Quỳnh Ngọc','0356478450','ngoc@gmail.com',N'Thái Bình','NV04'),
+(N'KH05',N'Trần Văn Vinh','0362025641','vinh@gmail.com',N'Bắc Giang','NV05'),
+(N'KH06',N'Trần Văn Hát','0985678888','hat@gmail.com',N'Hà Nội','NV06'),
+(N'KH07',N'Nguyễn Thị Loan','0914645555','loan@gmail.com',N'Sài Gòn','NV07')
+
+insert into TaiKhoan(id,username,pass,email,loai) values 
+('TK01','nbtuan','123456',N'tuan@gmail.com','admin'),
+('TK02','ndthuan','123456',N'thuan@gmail.com','agency'),
+('TK03','tbquoc','123456',N'quoc@gmail.com','agency'),
+('TK04','ntphuong','123456',N'phuong@gmail.com','customer')
+UPDATE TaiKhoan
+SET MaNV = 'NV01'
+WHERE id = 'TK03' AND MaNV IS NULL;

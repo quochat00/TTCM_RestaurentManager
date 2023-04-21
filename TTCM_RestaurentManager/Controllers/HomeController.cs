@@ -21,6 +21,7 @@ namespace TTCM_RestaurentManager.Controllers
             _logger = logger;
         }
         [Route("index")]
+        [Route("")]
         [HttpGet]
         public IActionResult Index(string MaLoaiMa)
         {
@@ -59,6 +60,20 @@ namespace TTCM_RestaurentManager.Controllers
 
             return View(monAnList);
         }
+        [Route("booktable")]
+        [HttpGet]
+        public IActionResult BookTables()
+        {
+            return View();
+        }
+        [Route("about")]
+        [HttpGet]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
 
 
     }

@@ -15,13 +15,13 @@ public partial class MonAn
 
     public string AnhMa { get; set; } = null!;
 
-    public string? MaLoaiMa { get; set; }
-
     public int SoLuongMa { get; set; }
 
     public int? Active { get; set; }
 
     public int? IsDeleted { get; set; }
+
+    public string? MaLoaiMa { get; set; }
 
     public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
 

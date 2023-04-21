@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Menus";
+    Layout = "~/Views/Shared/_LayoutMenuCustomer.cshtml";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<MonAn>
+@using NuGet.Packaging;
+@using TTCM_RestaurentManager.Models;
+
+@{
+    SelectList selectList = ViewBag.MaLoaiMa as SelectList;// Create the select list
+    var newList = new List<SelectListItem>();
+    newList.Add(new SelectListItem { Text = "All", Value = "" });
+    newList.AddRange(selectList);
+    ViewBag.MaLoaiMa = new SelectList(newList, "Value", "Text", "");
+}
+
+<form method="get" action="@Url.Action("Menus")">
+    <div class="form-group">
+        <label for="MaLoaiMa">Type of Dishes:</label>
+
+        @Html.DropDownList("MaLoaiMa", selectList, new { @class = "form-control", @onchange = "this.form.submit();" })
+    </div>
+</form>
+
+
+
+
+
+<div class="filters-content">
+    <div class="row grid">
+        @foreach (var item in Model)
+        {
+            if (item.IsDeleted == 0)
+            {
+                @await Html.PartialAsync("_PartialMonAnCustomer", item)
+            }
+        }
+    </div>
+</div>
+

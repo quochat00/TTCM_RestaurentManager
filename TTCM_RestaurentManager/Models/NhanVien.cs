@@ -17,5 +17,7 @@ public partial class NhanVien
 
     public string EmailNv { get; set; } = null!;
 
+    public int? IsDeleted { get; set; }
+
     public virtual ICollection<TaiKhoan> TaiKhoans { get; set; } = new List<TaiKhoan>();
 }

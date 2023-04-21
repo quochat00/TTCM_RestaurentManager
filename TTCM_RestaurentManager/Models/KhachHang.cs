@@ -17,6 +17,8 @@ public partial class KhachHang
 
     public string DiaChi { get; set; } = null!;
 
+    public int? IsDeleted { get; set; }
+
     public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
 
     public virtual ICollection<TaiKhoan> TaiKhoans { get; set; } = new List<TaiKhoan>();

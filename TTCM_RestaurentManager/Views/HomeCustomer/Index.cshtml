@@ -3,17 +3,31 @@
     Layout = "~/Views/Shared/_LayoutHomeCustomer.cshtml";
 }
 
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<MonAn>
-<div>
+@using TTCM_RestaurentManager.Models;
+@{
+    SelectList selectList = ViewBag.MaLoaiMa as SelectList;
+
+}
+<form method="get" action="@Url.Action("Index")">
+    <div class="form-group">
+        <label for="MaLoaiMa">Type of Dishes:</label>
+        
+        @Html.DropDownList("MaLoaiMa", selectList, new { @class = "form-control", @onchange = "this.form.submit();" })
+    </div>
+</form>
+<div class="filters-content">
+    <div class="row grid">
     @foreach (var item in Model)
     {
         if (item.IsDeleted == 0)
         {
-            @await Html.PartialAsync("_PartialMonAn", item)
+            @await Html.PartialAsync("_PartialMonAnCustomer", item)
 
         }
     }
+</div>
 </div>
 
 
