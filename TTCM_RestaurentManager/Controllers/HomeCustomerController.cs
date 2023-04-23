@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TTCM_RestaurentManager.Models;
 
@@ -17,22 +18,36 @@ namespace TTCM_RestaurentManager.Controllers
         }
         [Route("index")]
         [Route("")]
-        public IActionResult Index(string MaLoaiMa)
+        public IActionResult Index(int MaLoaiMa)
         {
             var model = from ma in resDb.MonAns
-                        where (string.IsNullOrEmpty(MaLoaiMa) || ma.MaLoaiMa == MaLoaiMa)
+                        where (MaLoaiMa == 0 || ma.MaLoaiMa == MaLoaiMa)
                         select ma;
-            if (MaLoaiMa == "all")
+            if (MaLoaiMa == 0)
             {
                 model = resDb.MonAns;
             }
-
+            var kh = getCurrentUser();
+            ViewBag.tenKhach = kh.TenKh;
             ViewBag.MaLoaiMa = new SelectList(resDb.LoaiMonAns, "MaLoaiMa", "TenLoaiMa");
             return View(model.ToList());
         }
-        [Route("booking")]
+
+        [Route("dishDetail")]
+		public IActionResult DishDetail(int madish)
+		{
+			var dishDetail = resDb.MonAns
+				.Where(t => t.MaMa == madish)
+				.FirstOrDefault();
+
+			ViewBag.DishDetail = dishDetail;
+			return View();
+		}
+
+
+		[Route("booking")]
         [HttpGet]
-        public IActionResult Booking(string dishId)
+        public IActionResult Booking(int dishId)
         {
             var dishDetail = (from t in resDb.MonAns
                               where t.MaMa == dishId
@@ -51,7 +66,7 @@ namespace TTCM_RestaurentManager.Controllers
         }
         [Route("booking")]
         [HttpPost]
-        public IActionResult Booking(int soLuong, string dishId)
+        public IActionResult Booking(int soLuong, int dishId)
         {
             if (soLuong <= 0)
             {
@@ -67,6 +82,7 @@ namespace TTCM_RestaurentManager.Controllers
             {
                 MaKh = kh.MaKh,
                 MaMa = dish.MaMa,
+                SoLuong = soLuong,
                 TongTien = dish.Gia * soLuong
             };
             resDb.HoaDons.Add(hd);
@@ -81,26 +97,83 @@ namespace TTCM_RestaurentManager.Controllers
             ViewBag.ngayDat = hd.NgayTao;
             return View("BookSuccessFully");
         }
+        [Route("history")]
+        public IActionResult History(int MaKH = 0)
+        {
+            var kh = getCurrentUser();
+            ViewBag.tenKhach = kh.TenKh;
+            if (MaKH == 0)
+            {
+                MaKH = getMaKH();
+            }
+            var history = (from hd in resDb.HoaDons
+                           join ts in resDb.MonAns on hd.MaMa equals ts.MaMa
+                           join Kh in resDb.KhachHangs on hd.MaKh equals Kh.MaKh
+                           where String.Equals(Kh.MaKh, MaKH)
+                           select new { MonAn = ts, HoaDon = hd, KhachHang = Kh }).OrderByDescending(x => x.HoaDon.NgayTao).ToList();
+            ViewBag.History = history;
+            return View();
+        }
 
+
+
+
+
+        [Route("myAccount")]
+        public IActionResult MyAccount()
+        {
+            var kh = getCurrentUser();
+            var userName = HttpContext.Session.GetString("UserName");
+            var tk = (from t in resDb.TaiKhoans where userName.Equals(t.Username) select t).ToList();
+            if (tk == null)
+            {
+                RedirectToAction("Access", "Login");
+            }
+            ViewBag.tenKhach = kh.TenKh;
+            ViewBag.diaChi = kh.DiaChi;
+            ViewBag.sdt = kh.Sdtkh;
+            ViewBag.userName = tk[0].Username;
+            ViewBag.email = tk[0].Email;
+            return View();
+        }
+
+        private int getMaKH()
+        {
+            int MaKHang = 0;
+            var userName = HttpContext.Session.GetString("UserName");
+            var khachhang = (from kh in resDb.KhachHangs
+                             join tk in resDb.TaiKhoans on kh.MaKh equals tk.MaKh
+                             where String.Equals(tk.Username, userName)
+                             select kh).ToList();
+            if (khachhang.Count > 0)
+            {
+                MaKHang = khachhang[0].MaKh;
+            }
+            return MaKHang;
+        }
         private KhachHang getCurrentUser()
         {
-            var userName = HttpContext.User.Identity.Name;
-            var khachhang = resDb.KhachHangs.FirstOrDefault(
-                kh => kh.TaiKhoans.Any(tk => tk.Username == userName));
-            return khachhang;
+            var userName = HttpContext.Session.GetString("UserName");
+            var khachhang = (from kh in resDb.KhachHangs
+                             join tk in resDb.TaiKhoans on kh.MaKh equals tk.MaKh
+                             where String.Equals(tk.Username, userName)
+                             select kh).ToList();
+            return khachhang[0];
         }
         [Route("menu")]
-        public IActionResult Menus(string maLoaiMa)
+        public IActionResult Menus(int maLoaiMa)
         {
             // Lấy danh sách món ăn từ database
             List<MonAn> monAnList = resDb.MonAns.ToList();
+
             // Nếu MaLoaiMa không có giá trị, lấy tất cả các món ăn
-            if (string.IsNullOrEmpty(maLoaiMa))
+            if (maLoaiMa == 0)
             {
                 ViewBag.MonAnList = resDb.MonAns.ToList();
             }
+
             // Lọc danh sách món ăn theo mã loại món ăn nếu có
-            if (!string.IsNullOrEmpty(maLoaiMa))
+            if (maLoaiMa != 0)
             {
                 monAnList = monAnList.Where(m => m.MaLoaiMa == maLoaiMa).ToList();
             }
@@ -109,9 +182,9 @@ namespace TTCM_RestaurentManager.Controllers
             ViewBag.MonAnList = monAnList;
             ViewBag.MaLoaiMa = new SelectList(resDb.LoaiMonAns.ToList(), "MaLoaiMa", "TenLoaiMa", "");
 
-
             return View(monAnList);
         }
+
 
         [Route("bookOK")]
         [HttpGet]

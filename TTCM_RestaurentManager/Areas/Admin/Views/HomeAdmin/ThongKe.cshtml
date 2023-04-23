@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "ThongKe";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using TTCM_RestaurentManager.Models;
+@model List<ThongKe>
+
+<div class="tab-content">
+	<div class="tab-pane active">
+		<div class="table-data">
+			<div class="order">
+				<div class="head">
+					<h3>Số món ăn được bán</h3>
+					<div class="status pending">
+						<form class="form" method="POST" asp-controller="HomeAdmin" asp-action="thongke">
+							<h6>Check-In</h6>
+							<input class="input--style-1" type="text" name="ngayTao" placeholder="mm/dd/yyyy" id="input-start">
+							<button class="btn-sm btn-gradient-danger" type="submit">search</button>
+						</form>
+					</div>
+
+				</div>
+				<section class="">
+					<div class="">
+						<div class="row">
+							<section class="">
+								<div class="container">
+									<div class="row">
+
+										@foreach (var item in Model)
+										{
+											<div class="col-lg-4 col-sm-6 mb-5">
+												<div class="package-info" style="height:300px">
+													<h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Tên món ăn: @item.dishName</h6>
+													<h6 class="mt-1"><span class="fa fa-map-marker mr-2"></span>Số lượng món ăn đã đặt: @item.soLuong</h6>
+												</div>
+											</div>
+										}
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</section>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+

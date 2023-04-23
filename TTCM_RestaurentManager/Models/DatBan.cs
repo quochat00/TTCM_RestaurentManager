@@ -13,7 +13,7 @@ public partial class DatBan
 
     public string Email { get; set; } = null!;
 
-    public DateTime NgayDatBan { get; set; }
+    public DateTimeOffset NgayDatBan { get; set; }
 
     public int SoLuongNguoi { get; set; }
 

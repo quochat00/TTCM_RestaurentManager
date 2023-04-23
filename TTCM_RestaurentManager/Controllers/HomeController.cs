@@ -23,12 +23,12 @@ namespace TTCM_RestaurentManager.Controllers
         [Route("index")]
         [Route("")]
         [HttpGet]
-        public IActionResult Index(string MaLoaiMa)
+        public IActionResult Index(int MaLoaiMa)
         {
             var model = from ma in resDb.MonAns
-                            where (string.IsNullOrEmpty(MaLoaiMa) || ma.MaLoaiMa == MaLoaiMa)
-                            select ma;
-            if (MaLoaiMa == "all")
+                        where (MaLoaiMa == 0 || ma.MaLoaiMa == MaLoaiMa)
+                        select ma;
+            if (MaLoaiMa == 0)
             {
                 model = resDb.MonAns;
             }
@@ -37,18 +37,21 @@ namespace TTCM_RestaurentManager.Controllers
             return View(model.ToList());
         }
 
+
         [Route("menu")]
-        public IActionResult Menus(string maLoaiMa)
+        public IActionResult Menus(int maLoaiMa)
         {
             // Lấy danh sách món ăn từ database
             List<MonAn> monAnList = resDb.MonAns.ToList();
+
             // Nếu MaLoaiMa không có giá trị, lấy tất cả các món ăn
-            if (string.IsNullOrEmpty(maLoaiMa))
+            if (maLoaiMa == 0)
             {
                 ViewBag.MonAnList = resDb.MonAns.ToList();
             }
+
             // Lọc danh sách món ăn theo mã loại món ăn nếu có
-            if (!string.IsNullOrEmpty(maLoaiMa))
+            if (maLoaiMa != 0)
             {
                 monAnList = monAnList.Where(m => m.MaLoaiMa == maLoaiMa).ToList();
             }
@@ -57,9 +60,9 @@ namespace TTCM_RestaurentManager.Controllers
             ViewBag.MonAnList = monAnList;
             ViewBag.MaLoaiMa = new SelectList(resDb.LoaiMonAns.ToList(), "MaLoaiMa", "TenLoaiMa", "");
 
-
             return View(monAnList);
         }
+
         [Route("booktable")]
         [HttpGet]
         public IActionResult BookTables()

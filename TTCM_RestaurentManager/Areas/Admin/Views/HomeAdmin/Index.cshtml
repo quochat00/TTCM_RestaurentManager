@@ -3,6 +3,25 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using TTCM_RestaurentManager.Models;
+@model List<ThongKe>
 
-<h1>Index</h1>
-
+<div class="tab-content">
+	<div class="tab-pane active">
+		<div class="table-data">
+			<div class="order">
+				<div class="head">
+					<h3>Số món ăn được bán </h3>
+						<div class="status pending">
+							<form class="form" method="POST" asp-controller="HomeAdmin" asp-action="thongke">
+								<h6>Check-In</h6>
+								<input class="input--style-1" type="text" name="ngayTao" placeholder="mm/dd/yyyy" id="input-start">					
+								<button class="btn-sm btn-gradient-danger" type="submit">search</button>
+							</form>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

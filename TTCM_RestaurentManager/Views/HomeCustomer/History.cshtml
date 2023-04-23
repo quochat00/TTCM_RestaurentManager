@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "History";
+    Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
+}
+<style>
+    .product__details__pic {
+        float: left;
+        margin-right: 20px;
+    }
+
+    .product__details__pic__item--large {
+        width: 180px;
+        height: 180px;
+    }
+
+    .product__details__text {
+        font-size: 16px;
+    }
+    .heart-icon {
+        float: right;
+    }
+
+    .btn {
+        font-size: 14px;
+        text-transform: uppercase;
+        padding: 10px 25px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        background-color: #e7ab3c;
+        color: #fff;
+    }
+
+        .btn:hover {
+            background-color: #c98b0c;
+        }
+
+</style>
+<h3 style="font-weight: bold; text-align: center;margin-bottom:20px">Lịch sử đặt món của bạn</h3>
+@foreach (var history in ViewBag.History)
+{
+            <div class="row" style="margin-bottom: 30px">
+                <div class="col-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                    <img class="product__details__pic__item--large" style="width: 180px; height: 180px"
+                                 src="@Url.Content("~/Assets/images/"+history.MonAn.AnhMa+".png")" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6" style="float: right;">
+                    <div class="product__details__text">
+                        <h3>@history.MonAn.TenMa</h3>
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <ul style="font-size: 16px;">
+                            <li><b>Số món ăn đã đặt :</b> <span>@history.HoaDon.SoLuong</span></li>
+                            <li><b>Ngày đặt :</b> <span>@history.HoaDon.NgayTao</span></li>
+                            <li><b>Tổng tiền:</b> <span>@history.HoaDon.TongTien</span></li>
+                            <a asp-controller="HomeCustomer" asp-action="Booking" asp-route-dishId="@history.MonAn.MaMa"><button class="btn btn-primary">Rebook Dish</button></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+}
+
+

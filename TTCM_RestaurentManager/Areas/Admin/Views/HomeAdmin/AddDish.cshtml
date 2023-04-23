@@ -1,56 +1,45 @@
 ﻿@model TTCM_RestaurentManager.Models.MonAn
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "AddTour";
+    ViewData["Title"] = "AddDish";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>AddTour</h1>
+<h1>Add Dish</h1>
 
-<h4>MonAn</h4>
 <hr />
-
-
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-action="AddDish">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="MaMa" class="control-label"></label>
-                <input asp-for="MaMa" class="form-control" />
-                <span asp-validation-for="MaMa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TenMa" class="control-label"></label>
+                <label asp-for="TenMa" class="control-label"><a>Tên món ăn</a></label>
                 <input asp-for="TenMa" class="form-control" />
                 <span asp-validation-for="TenMa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ChiTietMa" class="control-label"></label>
+                <label asp-for="ChiTietMa" class="control-label"><a>Chi tiết món ăn</a></label>
                 <input asp-for="ChiTietMa" class="form-control" />
                 <span asp-validation-for="ChiTietMa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gia" class="control-label"></label>
+                <label asp-for="Gia" class="control-label"><a>Giá</a></label>
                 <input asp-for="Gia" class="form-control" />
                 <span asp-validation-for="Gia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AnhMa" class="control-label"></label>
-                <input asp-for="AnhMa" class="form-control" type="file" onchange="handleFileInputChange(event)" />
+                <label asp-for="AnhMa" class="control-label"><a>Ảnh món ăn</a></label>
+                <input asp-for="AnhMa" class="form-control" />
                 <span asp-validation-for="AnhMa" class="text-danger"></span>
             </div>
-
-            
-
             <div class="form-group">
-                <label asp-for="MaLoaiMa" class="control-label"></label>
-                <select asp-for="MaLoaiMa" class ="form-control" asp-items="ViewBag.MaLoaiMa"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoLuongMa" class="control-label"></label>
+                <label asp-for="SoLuongMa" class="control-label"><a>Số lượng món ăn</a></label>
                 <input asp-for="SoLuongMa" class="form-control" />
                 <span asp-validation-for="SoLuongMa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaLoaiMa" class="control-label"><a>Loại món ăn</a></label>
+                <select asp-for="MaLoaiMa" class ="form-control" asp-items="ViewBag.MaLoaiMa"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -60,25 +49,6 @@
 </div>
 
 <div>
-    <a asp-action="listbill">Back to List</a>
+    <a asp-action="listDish">Back to List</a>
 </div>
 
-
-<script>
-    function handleFileInputChange(event) {
-        // Lấy giá trị của input file
-        const fileInput = event.target;
-        const fileName = fileInput.value;
-
-        // Xử lý chuỗi để chỉ giữ lại tên file và loại bỏ đuôi ảnh
-        const lastIndex = fileName.lastIndexOf("\\");
-        const truncatedFileName = fileName.substring(lastIndex + 1, fileName.lastIndexOf("."));
-
-        // Đặt giá trị cho input hidden tương ứng với tên file đã xử lý
-        const hiddenInput = document.createElement("input");
-        hiddenInput.type = "hidden";
-        hiddenInput.name = "AnhMa";
-        hiddenInput.value = truncatedFileName;
-        fileInput.parentNode.appendChild(hiddenInput);
-    }
-</script>

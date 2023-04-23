@@ -20,7 +20,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            @using (Html.BeginForm("SignUp", "Access", FormMethod.Post))
+            @using (Html.BeginForm("SignUp", "Access", FormMethod.Post, new { onsubmit = "redirectToCustomer()" }))
             {
                 <h1>Create Account</h1>
                 <div class="social-container">
@@ -33,7 +33,7 @@
                 @Html.TextBoxFor(x => x.Email, new { @class = "form-control form-control-lg", placeholder = "Email" })
                 @Html.TextBoxFor(x => x.Pass, new { @class = "form-control form-control-lg", placeholder = "Password", type = "password" })
                 @Html.TextBoxFor(x => x.Loai, new { @class = "form-control form-control-lg", placeholder = "loai" })
-                <button>Sign Up</button>
+                <button type="submit">Sign Up</button>
             }
         </div>
         <div class="form-container sign-in-container">
@@ -71,6 +71,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function redirectToCustomer() {
+            window.location.href = "/customer/addCustomer";
+            return false;
+        }
+    </script>
     <script src="../../Assets/js/login.js" async defer></script>
 </body>
+
 </html>

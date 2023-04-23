@@ -5,11 +5,11 @@ namespace TTCM_RestaurentManager.Models;
 
 public partial class HoaDon
 {
-    public string MaHd { get; set; } = null!;
+    public int MaHd { get; set; }
 
-    public string? MaMa { get; set; }
+    public int? MaMa { get; set; }
 
-    public string? MaKh { get; set; }
+    public int? MaKh { get; set; }
 
     public DateTime? NgayTao { get; set; }
 

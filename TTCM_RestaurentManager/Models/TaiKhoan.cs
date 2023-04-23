@@ -5,7 +5,7 @@ namespace TTCM_RestaurentManager.Models;
 
 public partial class TaiKhoan
 {
-    public string Id { get; set; } = null!;
+    public int Id { get; set; }
 
     public string Username { get; set; } = null!;
 
@@ -15,9 +15,9 @@ public partial class TaiKhoan
 
     public string? Loai { get; set; }
 
-    public string? MaNv { get; set; }
+    public int? MaNv { get; set; }
 
-    public string? MaKh { get; set; }
+    public int? MaKh { get; set; }
 
     public int? IsDeleted { get; set; }
 

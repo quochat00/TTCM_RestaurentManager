@@ -1,89 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Thank you";
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutBooking.cshtml";
 
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Grand Tour Travel Category Flat Bootstrap Responsive Web Template | Packages :: w3layouts</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <meta name="keywords" content="Grand Tour Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
-    <script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-
-    <!-- css files -->
-    <link href="../Assets/css/bootstrap.css" rel='stylesheet' type='text/css' /><!-- bootstrap css -->
-    <link href="../Assets/css/style.css" rel='stylesheet' type='text/css' /><!-- custom css -->
-    <link href="../Assets/css/font-awesome.min.css" rel="stylesheet"><!-- fontawesome css -->
-    <!-- //css files -->
-    <!-- google fonts -->
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <!-- //google fonts -->
-    <!-- Search -->
-    <!-- Icons font CSS-->
-    <link href="vendor/mdi-font/../Assets/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/../Assets/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-
-    <!-- Vendor CSS-->
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="../Assets/css/search.css" rel="stylesheet" media="all">
-    <!-- Search -->
-    <style>
-        .confirm {
-            align-content: center;
-            text-align: left;
-            margin-left: 40%;
-        }
-
-        .description {
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
-
-
-
-</head>
-<body>
-
-    @await Html.PartialAsync("_PartialHeaderCustomer")
-
     <section class="banner_inner" id="home">
         <div class="banner_inner_overlay">
         </div>
     </section>
     <h1 class="description">Booking Confirmed!</h1>
-    <p class="description">Thank you for booking a tour with us. Your booking has been confirmed.</p>
-    <p class="description">We look forward to seeing you on your tour!</p>
+<p class="description">
+    Thank you for ordering restaurant food.Your dish has been confirmed.
+</p>
+<p class="description">We are happy to serve you!</p>
     <div class="confirm">
         <ul>
             <li>Dish Name: <strong>@ViewBag.tenDish</strong></li>
             <li>Customer Name: <strong>@ViewBag.tenKhach</strong></li>
             <li>Phone: <strong>@ViewBag.sdt</strong></li>
             <li>Number of Dishes: <strong>@ViewBag.soLuong</strong></li>
-            <li>Total Cost: <strong>@ViewBag.tongTien</strong></li>
+            <li>Total Cost: <strong>$@ViewBag.tongTien.ToString("#")</strong></li>
             <li>Booked Date: <strong>@ViewBag.ngayDat</strong></li>
         </ul>
     </div>
 
     <section class="packages pt-5">
     </section>
-</body>
-</html>

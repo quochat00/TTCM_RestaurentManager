@@ -1,0 +1,46 @@
+﻿@model TTCM_RestaurentManager.Models.KhachHang
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "AddCustomer";
+    Layout = "~/Views/Shared/_LayoutAddCustomer.cshtml";
+}
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <div class="form_container">
+            <form method="post" asp-action="AddCustomer">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                   
+                    <input asp-for="AnhKh" class="form-control" type="file" />
+                    <span asp-validation-for="AnhKh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                   
+                    <input asp-for="TenKh" class="form-control" placeholder="Customer Name" />
+                    <span asp-validation-for="TenKh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                   
+                    <input asp-for="Sdtkh" class="form-control" placeholder="Phone" />
+                    <span asp-validation-for="Sdtkh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                   
+                    <input asp-for="EmailKh" class="form-control" placeholder="Email" />
+                    <span asp-validation-for="EmailKh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                  
+                    <input asp-for="DiaChi" class="form-control" placeholder="Address" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+                <div class="btn-box">
+                    <input type="submit" value="More Customers" class="btn btn-primary" />
+                </div>
+            </form>
+
+    </div>
+</div>
+</div>
+

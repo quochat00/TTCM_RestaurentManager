@@ -5,9 +5,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>EditDish</h1>
+<h1>Edit Dish</h1>
 
-<h4>MonAn</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,32 +14,32 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaMa" />
             <div class="form-group">
-                <label asp-for="TenMa" class="control-label"></label>
+                <label asp-for="TenMa" class="control-label"><a>Tên món ăn</a></label>
                 <input asp-for="TenMa" class="form-control" />
                 <span asp-validation-for="TenMa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ChiTietMa" class="control-label"></label>
+                <label asp-for="ChiTietMa" class="control-label"><a>Chi tiết món ăn</a></label>
                 <input asp-for="ChiTietMa" class="form-control" />
                 <span asp-validation-for="ChiTietMa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gia" class="control-label"></label>
+                <label asp-for="Gia" class="control-label"><a>Giá</a></label>
                 <input asp-for="Gia" class="form-control" />
                 <span asp-validation-for="Gia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AnhMa" class="control-label"></label>
+                <label asp-for="AnhMa" class="control-label"><a>Ảnh món ăn</a></label>
                 <input asp-for="AnhMa" class="form-control" />
                 <span asp-validation-for="AnhMa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaLoaiMa" class="control-label"></label>
+                <label asp-for="MaLoaiMa" class="control-label"><a>Loại món ăn</a></label>
                 <select asp-for="MaLoaiMa" class="form-control" asp-items="ViewBag.MaLoaiMa"></select>
                 <span asp-validation-for="MaLoaiMa" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SoLuongMa" class="control-label"></label>
+                <label asp-for="SoLuongMa" class="control-label"><a>Số lượng món ăn</a></label>
                 <input asp-for="SoLuongMa" class="form-control" />
                 <span asp-validation-for="SoLuongMa" class="text-danger"></span>
             </div>

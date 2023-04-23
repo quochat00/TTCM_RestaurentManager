@@ -5,7 +5,7 @@ namespace TTCM_RestaurentManager.Models;
 
 public partial class KhachHang
 {
-    public string MaKh { get; set; } = null!;
+    public int MaKh { get; set; }
 
     public string AnhKh { get; set; } = null!;
 

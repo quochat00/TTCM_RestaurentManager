@@ -5,6 +5,7 @@
     {
         public MonAn MonAn { get; set; }
         public int Quantity { get; set; }
+        public decimal Total { get; set; }
     }
     public class Cart
     {
@@ -21,7 +22,8 @@
                 items.Add(new CartItem
                 {
                     MonAn = cart,
-                    Quantity = quantity
+                    Quantity = quantity,
+                    Total = cart.Gia * quantity,
                 });
             }
             else

@@ -5,7 +5,7 @@ namespace TTCM_RestaurentManager.Models;
 
 public partial class MonAn
 {
-    public string MaMa { get; set; } = null!;
+    public int MaMa { get; set; }
 
     public string TenMa { get; set; } = null!;
 
@@ -21,7 +21,7 @@ public partial class MonAn
 
     public int? IsDeleted { get; set; }
 
-    public string? MaLoaiMa { get; set; }
+    public int? MaLoaiMa { get; set; }
 
     public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
 

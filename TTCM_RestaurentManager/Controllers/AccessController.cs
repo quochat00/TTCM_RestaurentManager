@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using TTCM_RestaurentManager.Models;
 
 namespace TTCM_RestaurentManager.Controllers
@@ -30,15 +31,58 @@ namespace TTCM_RestaurentManager.Controllers
                         case "admin":
                             return RedirectToAction("Index", "HomeAdmin");
                         case "customer":
-                            return RedirectToAction("Index", "HomeCustomer");
+                            // Kiểm tra xem thông tin khách hàng đã có chưa
+                            var customer = db.KhachHangs.FirstOrDefault(kh => kh.MaKh == obj.MaKh);
+                            if (customer != null)
+                            {
+                                return RedirectToAction("Index", "HomeCustomer");
+                            }
+                            else
+                            {
+                                return RedirectToAction("AddCustomer");
+                            }
                         default:
                             return View();
                     }
                 }
+
             }
             ModelState.AddModelError(string.Empty, "Invalid username or password");
             return View(user);
         }
+        [Route("addCustomer")]
+        public IActionResult AddCustomer()
+        {
+            return View();
+        }
+        [ValidateAntiForgeryToken]
+        [Route("addCustomer")]
+        [HttpPost]
+        public IActionResult AddCustomer(KhachHang kh)
+        {
+            if (ModelState.IsValid)
+            {
+                db.KhachHangs.Add(kh);
+                db.SaveChanges();
+
+                // Lấy MaKH vừa được thêm vào
+                int maKH = kh.MaKh;
+
+                // Lấy thông tin tài khoản đăng nhập hiện tại
+                string username = HttpContext.Session.GetString("UserName");
+                var taiKhoan = db.TaiKhoans.FirstOrDefault(x => x.Username == username);
+
+                // Thêm MaKH vào tài khoản đăng nhập
+                taiKhoan.MaKh = maKH;
+                db.TaiKhoans.Update(taiKhoan);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "HomeCustomer");
+            }
+            return View(kh);
+        }
+
+
         [HttpGet]
         public IActionResult Logout()
         {

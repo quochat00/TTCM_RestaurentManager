@@ -23,7 +23,7 @@
             </div>
 
             <div>
-                <input asp-for="NgayDatBan" class="form-control" type="date" />
+                <input asp-for="NgayDatBan" class="form-control" type="datetime-local" />
                 <span asp-validation-for="NgayDatBan" class="text-danger"></span>
             </div>
 
@@ -43,6 +43,9 @@
                     </option>
                     <option value="5">
                         5
+                    </option>
+                    <option value="6">
+                        6
                     </option>
                 </select>
                 <span asp-validation-for="SoLuongNguoi" class="text-danger"></span>

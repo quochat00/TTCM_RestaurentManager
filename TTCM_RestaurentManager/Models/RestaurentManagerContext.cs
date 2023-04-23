@@ -33,22 +33,22 @@ public partial class RestaurentManagerContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-MIODTN1D\\SQLEXPRESS;Initial Catalog=RestaurentManager;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-MIODTN1D;Initial Catalog=RestaurentManager;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Ban>(entity =>
         {
-            entity.HasKey(e => e.MaBan).HasName("PK__Ban__3520ED6CA6C87C63");
+            entity.HasKey(e => e.MaBan).HasName("PK__Ban__3520ED6C05A1DE2C");
 
             entity.ToTable("Ban");
 
-            entity.Property(e => e.MaBan).HasMaxLength(10);
+            entity.Property(e => e.LoaiBan).HasMaxLength(10);
         });
 
         modelBuilder.Entity<DatBan>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DatBan__3214EC279E8D0FA8");
+            entity.HasKey(e => e.Id).HasName("PK__DatBan__3214EC27523FE627");
 
             entity.ToTable("DatBan");
 
@@ -56,28 +56,21 @@ public partial class RestaurentManagerContext : DbContext
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.GhiChu).HasMaxLength(100);
             entity.Property(e => e.HoTen).HasMaxLength(50);
-            entity.Property(e => e.NgayDatBan).HasColumnType("datetime");
             entity.Property(e => e.SoDienThoai).HasMaxLength(20);
         });
 
         modelBuilder.Entity<HoaDon>(entity =>
         {
-            entity.HasKey(e => e.MaHd).HasName("PK__HoaDon__2725A6E06621B2A3");
+            entity.HasKey(e => e.MaHd).HasName("PK__HoaDon__2725A6E08BB6210A");
 
             entity.ToTable("HoaDon");
 
-            entity.Property(e => e.MaHd)
-                .HasMaxLength(10)
-                .HasColumnName("MaHD");
+            entity.Property(e => e.MaHd).HasColumnName("MaHD");
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("isDeleted");
-            entity.Property(e => e.MaKh)
-                .HasMaxLength(10)
-                .HasColumnName("MaKH");
-            entity.Property(e => e.MaMa)
-                .HasMaxLength(10)
-                .HasColumnName("MaMA");
+            entity.Property(e => e.MaKh).HasColumnName("MaKH");
+            entity.Property(e => e.MaMa).HasColumnName("MaMA");
             entity.Property(e => e.NgayTao)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("date");
@@ -94,13 +87,11 @@ public partial class RestaurentManagerContext : DbContext
 
         modelBuilder.Entity<KhachHang>(entity =>
         {
-            entity.HasKey(e => e.MaKh).HasName("PK__KhachHan__2725CF1E492CDB77");
+            entity.HasKey(e => e.MaKh).HasName("PK__KhachHan__2725CF1E19BF81A8");
 
             entity.ToTable("KhachHang");
 
-            entity.Property(e => e.MaKh)
-                .HasMaxLength(10)
-                .HasColumnName("MaKH");
+            entity.Property(e => e.MaKh).HasColumnName("MaKH");
             entity.Property(e => e.AnhKh)
                 .HasMaxLength(1024)
                 .HasColumnName("AnhKH");
@@ -121,16 +112,11 @@ public partial class RestaurentManagerContext : DbContext
 
         modelBuilder.Entity<LoaiMonAn>(entity =>
         {
-            entity.HasKey(e => e.MaLoaiMa).HasName("PK__LoaiMonA__12253B45CC774324");
+            entity.HasKey(e => e.MaLoaiMa).HasName("PK__LoaiMonA__12253B452B7404EA");
 
             entity.ToTable("LoaiMonAn");
 
-            entity.Property(e => e.MaLoaiMa)
-                .HasMaxLength(10)
-                .HasColumnName("MaLoaiMA");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValueSql("((0))")
-                .HasColumnName("isDeleted");
+            entity.Property(e => e.MaLoaiMa).HasColumnName("MaLoaiMA");
             entity.Property(e => e.TenLoaiMa)
                 .HasMaxLength(100)
                 .HasColumnName("TenLoaiMA");
@@ -138,13 +124,11 @@ public partial class RestaurentManagerContext : DbContext
 
         modelBuilder.Entity<MonAn>(entity =>
         {
-            entity.HasKey(e => e.MaMa).HasName("PK__MonAn__2725DFC056547045");
+            entity.HasKey(e => e.MaMa).HasName("PK__MonAn__2725DFC0FB6AB877");
 
             entity.ToTable("MonAn");
 
-            entity.Property(e => e.MaMa)
-                .HasMaxLength(10)
-                .HasColumnName("MaMA");
+            entity.Property(e => e.MaMa).HasColumnName("MaMA");
             entity.Property(e => e.Active).HasDefaultValueSql("((0))");
             entity.Property(e => e.AnhMa)
                 .HasMaxLength(1024)
@@ -156,9 +140,7 @@ public partial class RestaurentManagerContext : DbContext
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValueSql("((0))")
                 .HasColumnName("isDeleted");
-            entity.Property(e => e.MaLoaiMa)
-                .HasMaxLength(10)
-                .HasColumnName("MaLoaiMA");
+            entity.Property(e => e.MaLoaiMa).HasColumnName("MaLoaiMA");
             entity.Property(e => e.SoLuongMa).HasColumnName("SoLuongMA");
             entity.Property(e => e.TenMa)
                 .HasMaxLength(100)
@@ -171,13 +153,11 @@ public partial class RestaurentManagerContext : DbContext
 
         modelBuilder.Entity<NhanVien>(entity =>
         {
-            entity.HasKey(e => e.MaNv).HasName("PK__NhanVien__2725D70A765FCC63");
+            entity.HasKey(e => e.MaNv).HasName("PK__NhanVien__2725D70A1CF14626");
 
             entity.ToTable("NhanVien");
 
-            entity.Property(e => e.MaNv)
-                .HasMaxLength(10)
-                .HasColumnName("MaNV");
+            entity.Property(e => e.MaNv).HasColumnName("MaNV");
             entity.Property(e => e.AnhNv)
                 .HasMaxLength(1024)
                 .HasColumnName("AnhNV");
@@ -198,13 +178,11 @@ public partial class RestaurentManagerContext : DbContext
 
         modelBuilder.Entity<TaiKhoan>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TaiKhoan__3213E83F06746306");
+            entity.HasKey(e => e.Id).HasName("PK__TaiKhoan__3213E83FED63D232");
 
             entity.ToTable("TaiKhoan");
 
-            entity.Property(e => e.Id)
-                .HasMaxLength(10)
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Email)
                 .HasMaxLength(30)
                 .HasColumnName("email");
@@ -214,12 +192,8 @@ public partial class RestaurentManagerContext : DbContext
             entity.Property(e => e.Loai)
                 .HasMaxLength(20)
                 .HasColumnName("loai");
-            entity.Property(e => e.MaKh)
-                .HasMaxLength(10)
-                .HasColumnName("MaKH");
-            entity.Property(e => e.MaNv)
-                .HasMaxLength(10)
-                .HasColumnName("MaNV");
+            entity.Property(e => e.MaKh).HasColumnName("MaKH");
+            entity.Property(e => e.MaNv).HasColumnName("MaNV");
             entity.Property(e => e.Pass)
                 .HasMaxLength(30)
                 .HasColumnName("pass");

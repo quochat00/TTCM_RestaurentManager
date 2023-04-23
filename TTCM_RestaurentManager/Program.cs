@@ -5,6 +5,8 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddSession();
+builder.Services.AddMvc();
+builder.Services.AddDistributedMemoryCache();
 
 
 

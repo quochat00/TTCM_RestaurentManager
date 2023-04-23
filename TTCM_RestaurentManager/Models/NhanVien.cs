@@ -5,7 +5,7 @@ namespace TTCM_RestaurentManager.Models;
 
 public partial class NhanVien
 {
-    public string MaNv { get; set; } = null!;
+    public int MaNv { get; set; }
 
     public string TenNv { get; set; } = null!;
 
