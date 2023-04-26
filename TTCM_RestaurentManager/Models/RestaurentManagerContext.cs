@@ -160,6 +160,7 @@ public partial class RestaurentManagerContext : DbContext
             entity.Property(e => e.MaNv).HasColumnName("MaNV");
             entity.Property(e => e.AnhNv)
                 .HasMaxLength(1024)
+                .IsUnicode(false)
                 .HasColumnName("AnhNV");
             entity.Property(e => e.ChucVu).HasMaxLength(30);
             entity.Property(e => e.EmailNv)

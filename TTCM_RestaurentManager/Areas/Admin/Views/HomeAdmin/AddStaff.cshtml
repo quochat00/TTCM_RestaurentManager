@@ -1,0 +1,45 @@
+﻿@model TTCM_RestaurentManager.Models.NhanVien
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "AddStaff";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Add Staff</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="AddStaff">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TenNv" class="control-label"><p>Tên nhân viên</p></label>
+                <input asp-for="TenNv" class="form-control" />
+                <span asp-validation-for="TenNv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChucVu" class="control-label"><p>Chức vụ</p></label>
+                <input asp-for="ChucVu" class="form-control" />
+                <span asp-validation-for="ChucVu" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Sdtnv" class="control-label"><p>Số điện thoại</p></label>
+                <input asp-for="Sdtnv" class="form-control" />
+                <span asp-validation-for="Sdtnv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailNv" class="control-label"><p>Email</p></label>
+                <input asp-for="EmailNv" class="form-control" />
+                <span asp-validation-for="EmailNv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="listStaff">Back to List</a>
+</div>
+

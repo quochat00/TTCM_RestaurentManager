@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TTCM_RestaurentManager.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "KHTheoTour";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="tab-content">
+    <div class="tab-pane active">
+        <div class="table-data">
+            <div class="order">
+                <div class="head">
+                    <h3>Khách Hàng Theo Dish </h3>
+                    <i class='bx bx-search'></i>
+                    <i class='bx bx-filter'></i>
+
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width:20%">
+                                Name
+                            </th>
+                            <th>
+                                Phone
+                            </th>
+                            <th>
+                                Email
+                            </th>
+
+                            <th>
+                                Address
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenKh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sdtkh)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailKh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DiaChi)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

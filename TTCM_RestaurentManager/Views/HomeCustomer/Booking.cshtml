@@ -23,13 +23,13 @@
                             <input type="text" id="phone" class="form-control" readonly value="@ViewBag.khachHang.Sdtkh" required="">
                         </div>
                         <div class="col-sm-6 form-group contact-forms">
-                            <label for="soLuong">Number of Tickets:</label>
+                            <label for="soLuong">Number of Dishs:</label>
                             <input for="soLuong" type="number" id="soLuong" name="soLuong" class="form-control" min="1" max="@ViewBag.dishDetail[0].SoLuongMa" value="0" onchange="calculateTotal()">
 
                         </div>
                         <div class="col-sm-6 form-group contact-forms">
                             <label for="totalPrice">Total cost:</label>
-                            <input type="text" id="totalPrice" class="form-control" placeholder="Select number of ticket to see cost" value="" disabled>
+                            <input type="text" id="totalPrice" class="form-control" placeholder="Select number of dish to see cost" value="" disabled>
                         </div>
                         <div class="col-md-12 form-group contact-forms">
                             <textarea class="form-control" placeholder="Note" rows="3"></textarea>

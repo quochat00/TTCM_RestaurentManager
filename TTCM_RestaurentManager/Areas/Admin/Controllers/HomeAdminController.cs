@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using TTCM_RestaurentManager.Models;
+using System.Web;
+using System.IO;
+
 
 namespace TTCM_RestaurentManager.Areas.Admin.Controllers
 {
@@ -11,6 +14,12 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         RestaurentManagerContext ResDb = new RestaurentManagerContext();
+        //private readonly IWebHostEnvironment _env;
+
+        //public HomeAdminController(IWebHostEnvironment env)
+        //{
+        //    _env = env;
+        //}
 
         [Route("")]
 		[Route("index")]
@@ -34,7 +43,7 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
 			var thongKes = (from hd in ResDb.HoaDons
 							join ts in ResDb.MonAns on hd.MaMa equals ts.MaMa
 							where dishIds.Contains((int)hd.MaMa)
-							select new { hd.MaMa, hd.SoLuong, ts.TenMa }).ToList();
+							select new { hd.MaMa, hd.SoLuong, ts.TenMa, ts.AnhMa }).ToList();
 
 			// Khởi tạo danh sách ThongKe, mỗi phần tử tương ứng với một món ăn
 			foreach (int dishId in dishIds)
@@ -53,6 +62,7 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
 					{
 						count += (int)thongKe.SoLuong;
 						tk.dishName = thongKe.TenMa;
+                        tk.dishImg = thongKe.AnhMa;
 					}
 				}
 				tk.soLuong = count;
@@ -82,6 +92,19 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
             }
             return View(lstDish);
         }
+        [Route("listbookdish")]
+        public IActionResult KHTheoTour(int khdish)
+        {
+            var kh = (from c in ResDb.KhachHangs
+                      join t in ResDb.HoaDons on c.MaKh equals t.MaKh
+                      join q in ResDb.MonAns on t.MaMa equals q.MaMa
+                      where q.MaMa == khdish
+                      select c);
+            return View(kh);
+        }
+
+
+
         [Route("addDish")]
         [HttpGet]
         public IActionResult AddDish()
@@ -89,7 +112,6 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
             ViewBag.MaLoaiMa = new SelectList(ResDb.LoaiMonAns.ToList(), "MaLoaiMa", "TenLoaiMa");
             return View();
         }
-
         [ValidateAntiForgeryToken]
         [Route("addDish")]
         [HttpPost]
@@ -101,8 +123,27 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
                 ResDb.SaveChanges();
                 return RedirectToAction("listDish");
             }
+            //if (uploadanh != null && uploadanh.Length > 0)
+            //{
+            //    int id = ResDb.MonAns.ToList().Last().MaMa;
+            //    string fileName = "f" + id.ToString();
+            //    //string extension = Path.GetExtension(uploadanh.FileName);
+            //    string _FileName = fileName;// + extension;
+            //    string _path = Path.Combine(_env.ContentRootPath, "Assets/images", _FileName);
+
+            //    using (var stream = new FileStream(_path, FileMode.Create))
+            //    {
+            //        uploadanh.CopyTo(stream);
+            //    }
+
+            //    MonAn unv = ResDb.MonAns.FirstOrDefault(x => x.MaMa == id);
+            //    unv.AnhMa = fileName;
+            //    ResDb.SaveChanges();
+            //}
+
             return View(dish);
         }
+
 
         [Route("editDish")]
         public IActionResult EditDish(int edish)
@@ -208,6 +249,7 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
             return View(lstTable);
         }
 
+
         [Route("editTable")]
         public IActionResult EditTable(int id)
 		{
@@ -233,13 +275,91 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
 			}
 			return View(table);
 		}
+        [Route("deleteTable")]
+        public IActionResult DeleteTable(int maTable)
+        {
+            // Lấy danh sách tour cần xóa dựa trên mã tour
+            var listtable = ResDb.DatBans.Where(x => x.Id == maTable);
+            // Xóa tour dựa trên mã tour và lưu thay đổi
+            var table = ResDb.DatBans.Find(maTable);
+            if (table != null)
+            {
+                ResDb.Remove(table);
+                ResDb.SaveChanges();
+            }
 
-		/////ListStaff
-		[Route("listStaff")]
+            // Chuyển hướng đến trang lịch sử thêm tour
+            return RedirectToAction("listTable");
+        }
+
+
+        /////ListStaff
+        [Route("addStaff")]
+        [HttpGet]
+        public IActionResult AddStaff()
+        {
+            return View();
+        }
+        [ValidateAntiForgeryToken]
+        [Route("addStaff")]
+        [HttpPost]
+        public IActionResult AddStaff(NhanVien nv)
+        {
+            if (ModelState.IsValid)
+            {
+                ResDb.NhanViens.Add(nv);
+                ResDb.SaveChanges();
+                return RedirectToAction("listStaff");
+            }
+
+            return View(nv);
+        }
+
+        [Route("listStaff")]
         public IActionResult ListStaff()
         {
             var lstStaff = ResDb.NhanViens.ToList();
             return View(lstStaff);
+        }
+        [Route("editStaff")]
+        public IActionResult EditStaff(int manv)
+        {
+            var staffEdit = ResDb.NhanViens.SingleOrDefault(x => x.MaNv == manv);
+            return View(staffEdit);
+        }
+        [Route("editStaff")]
+        [HttpPost]
+        public IActionResult EditStaff(NhanVien nv)
+        {
+            var staff = ResDb.NhanViens.Find(nv.MaNv);
+            if (ModelState.IsValid)
+            {
+                staff.MaNv = nv.MaNv;
+                staff.TenNv = nv.TenNv;
+                staff.ChucVu = nv.ChucVu;
+                staff.Sdtnv = nv.Sdtnv;
+                staff.EmailNv = nv.EmailNv;
+                staff.AnhNv = nv.AnhNv;
+                ResDb.SaveChanges();
+                return RedirectToAction("listStaff");
+            }
+            return View(staff);
+        }
+        [Route("deleteStaff")]
+        public IActionResult DeleteStaff(int maStaff)
+        {
+            // Lấy danh sách tour cần xóa dựa trên mã tour
+            var liststaff = ResDb.NhanViens.Where(x => x.MaNv == maStaff);
+            // Xóa tour dựa trên mã tour và lưu thay đổi
+            var staff = ResDb.NhanViens.Find(maStaff);
+            if (staff != null)
+            {
+                ResDb.Remove(staff);
+                ResDb.SaveChanges();
+            }
+
+            // Chuyển hướng đến trang lịch sử thêm tour
+            return RedirectToAction("listStaff");
         }
     }
 }

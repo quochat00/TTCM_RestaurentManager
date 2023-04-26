@@ -11,7 +11,7 @@ public partial class NhanVien
 
     public string ChucVu { get; set; } = null!;
 
-    public string AnhNv { get; set; } = null!;
+    public string? AnhNv { get; set; }
 
     public string Sdtnv { get; set; } = null!;
 

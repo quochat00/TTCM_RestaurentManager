@@ -144,6 +144,13 @@
                     <h3>Danh Sách Nhân Viên </h3>
                     <i class='bx bx-search'></i>
                     <i class='bx bx-filter'></i>
+                    <div>
+                        <a asp-controller="HomeAdmin" asp-action="AddStaff" class="create">
+                            <button type="button" class="snip1582" asp-controller="HomeAdmin" asp-action="AddStaff">
+                                <i></i>Create New
+                            </button>
+                        </a>
+                    </div>
                 </div>
                 <table>
                     <thead>
@@ -184,8 +191,8 @@
                                 </td>
                               
                                 <td>
-                                    <a class="btn-sm btn-gradient-dark " asp-action="editStaff" asp-route-edish="@item.MaNv">Edit</a>
-                                    <a class="btn-sm btn-gradient-danger" asp-action="deleteStaff" asp-route-madish="@item.MaNv">Delete</a>
+                                    <a class="btn-sm btn-gradient-dark " asp-action="editStaff" asp-route-manv="@item.MaNv">Edit</a>
+                                    <a class="btn-sm btn-gradient-danger" asp-action="deleteStaff" asp-route-maStaff="@item.MaNv">Delete</a>
                                 </td>
                             </tr>
                         }

@@ -1,22 +1,36 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Session;
-using System.Web;
+using Microsoft.AspNetCore.Hosting;
 namespace TTCM_RestaurentManager
 {
-	public class Startup
-	{
-		public void Configure(IApplicationBuilder app)
-		{
-			app.UseSession();
-		}
+    public class Startup
+    {
+        private readonly IWebHostEnvironment _env;
 
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddMvc();
-			services.AddSession(options =>
-			{
-				options.IdleTimeout = TimeSpan.FromMinutes(5);
-			});
-		}
-	}
+        public Startup(IWebHostEnvironment env)
+        {
+            _env = env;
+        }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // ...
+            services.AddSingleton<IWebHostEnvironment>(_env);
+            // ...
+        }
+
+
+        public void Configure(IApplicationBuilder app)
+        {
+            if (_env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+
+            // ...
+        }
+    }
 }
