@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using TTCM_RestaurentManager.Models;
 using System.Web;
 using System.IO;
-
+using X.PagedList;
 
 namespace TTCM_RestaurentManager.Areas.Admin.Controllers
 {
@@ -117,12 +117,12 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddDish(MonAn dish)
         {
-            if (ModelState.IsValid)
-            {
+           
+                dish.AnhMa = dish.formFile.FileName.Split(".")[0];
                 ResDb.MonAns.Add(dish);
                 ResDb.SaveChanges();
                 return RedirectToAction("listDish");
-            }
+            
             //if (uploadanh != null && uploadanh.Length > 0)
             //{
             //    int id = ResDb.MonAns.ToList().Last().MaMa;
@@ -158,20 +158,20 @@ namespace TTCM_RestaurentManager.Areas.Admin.Controllers
         public IActionResult EditDish(MonAn eddish)
         {
             var dish = ResDb.MonAns.Find(eddish.MaMa);
-            if (ModelState.IsValid)
-            {
+          
+                
                 dish.MaMa = eddish.MaMa;
                 dish.TenMa = eddish.TenMa;
                 dish.ChiTietMa = eddish.ChiTietMa;
                 dish.Gia = eddish.Gia;
-                dish.AnhMa = eddish.AnhMa;
+                dish.AnhMa = eddish.formFile.FileName.Split(".")[0];
                 dish.MaLoaiMa = eddish.MaLoaiMa;
                 dish.SoLuongMa = eddish.SoLuongMa;
                 dish.Active = eddish.Active;
                 dish.IsDeleted = eddish.IsDeleted;
                 ResDb.SaveChanges();
                 return RedirectToAction("listDish");
-            }
+        
             return View(eddish);
         }
         [Route("deleteDish")]

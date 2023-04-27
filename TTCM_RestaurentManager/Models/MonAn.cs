@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TTCM_RestaurentManager.Models;
 
@@ -23,7 +24,9 @@ public partial class MonAn
 
     public int? MaLoaiMa { get; set; }
 
-    public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
+	[NotMapped]
+	public IFormFile? formFile { get; set; }
+	public virtual ICollection<HoaDon> HoaDons { get; set; } = new List<HoaDon>();
 
     public virtual LoaiMonAn? MaLoaiMaNavigation { get; set; }
 }
